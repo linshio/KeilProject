@@ -1,0 +1,54 @@
+C51 COMPILER V9.54   MAIN                                                                  06/16/2024 22:51:07 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
+OBJECT MODULE PLACED IN .\Objects\main.obj
+COMPILER INVOKED BY: D:\DevelopApplication\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
+                    -INT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          void Delay(unsigned int xms)    //@12.000MHz
+   3          {
+   4   1        unsigned char i, j;
+   5   1      
+   6   1        while(--xms){
+   7   2          i = 2;
+   8   2          j = 239;
+   9   2          do
+  10   2          {
+  11   3            while (--j);
+  12   3          } while (--i);
+  13   2        }
+  14   1      }
+  15          void main(){
+  16   1        //让P20的LED灯点亮
+  17   1        while(1){
+  18   2          //如果P31的按钮按下去的时候
+  19   2          if(P3_1==0){
+  20   3            //过滤按下抖动
+  21   3            Delay(20);
+  22   3            //此时按钮按下不做任何操作
+  23   3            while(P3_1==0);
+  24   3            //过滤弹起抖动
+  25   3            Delay(20);
+  26   3            //扭转P20灯泡状态
+  27   3            P2_0=~P2_0;
+  28   3          }
+  29   2        }
+  30   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =     44    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
