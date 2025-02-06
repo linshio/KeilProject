@@ -24,7 +24,7 @@ void main(){
 			while(P3_1==0);
 			Delay(20);
 			LEDNum++;
-			LEDNum = LEDNum >= 8 ? 0 : LEDNum;
+			LEDNum = LEDNum % 8;
 			//p2按位左移
 			P2=~(0x01<<LEDNum);
 		}
@@ -33,7 +33,11 @@ void main(){
 			Delay(20);
 			while(P3_0==0);
 			Delay(20);
-			LEDNum--;
+			//因为定义的LEDNum为无符号整型的，需要判断是否等于0
+			if(LEDNum==0)
+				LEDNum = 7;
+			else
+				LEDNum--;
 			LEDNum = LEDNum <= 0 ? 7 : LEDNum;
 			//p2按位左移
 			P2=~(0x01<<LEDNum);

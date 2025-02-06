@@ -1,4 +1,5 @@
 #include <REGX52.H>
+//该方法为延时效果
 void Delay(unsigned int xms)		//@12.000MHz
 {
 	unsigned char i, j;
