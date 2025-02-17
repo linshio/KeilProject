@@ -1,0 +1,86 @@
+C51 COMPILER V9.54   DS1302                                                                02/17/2025 20:40:04 PAGE 1   
+
+
+C51 COMPILER V9.54, COMPILATION OF MODULE DS1302
+OBJECT MODULE PLACED IN .\Objects\DS1302.obj
+COMPILER INVOKED BY: D:\DevelopApplication\Keil_v5\C51\BIN\C51.EXE DS1302.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND 
+                    -PRINT(.\Listings\DS1302.lst) OBJECT(.\Objects\DS1302.obj)
+
+line level    source
+
+   1          #include <REGX52.H>
+   2          void DS1302_WriteByte(unsigned char Commond,Data);
+   3          
+   4          sbit DS1302_SCLK = P3^6;
+   5          sbit DS1302_IO = P3^4;
+   6          sbit DS1302_CE = P3^5;
+   7          
+   8          void DS1302_Init(void)
+   9          {
+  10   1              DS1302_CE=0;
+  11   1              DS1302_SCLK=0;
+  12   1              //解除写保护状态
+  13   1              DS1302_WriteByte(0x8E,0x00);
+  14   1      }
+  15          
+  16          void DS1302_WriteByte(unsigned char Commond,Data)
+  17          {
+  18   1              unsigned char i;
+  19   1              DS1302_CE=1;
+  20   1              //将第n位取出来赋值给IO
+  21   1              for(i=0;i<8;i++)
+  22   1              {
+  23   2                      DS1302_IO=Commond&(0x01<<i);
+  24   2                      DS1302_SCLK=1;
+  25   2                      DS1302_SCLK=0;
+  26   2              }
+  27   1              
+  28   1              for(i=0;i<8;i++)
+  29   1              {
+  30   2                      DS1302_IO=Data&(0x01<<i);
+  31   2                      DS1302_SCLK=1;
+  32   2                      DS1302_SCLK=0;
+  33   2              }
+  34   1              DS1302_CE=0;
+  35   1      }
+  36          
+  37          unsigned char DS1302_ReadByte(unsigned char Commond)
+  38          {
+  39   1              unsigned char i,Data=0x00;
+  40   1              DS1302_CE=1;
+  41   1              //将第n位取出来赋值给IO
+  42   1              for(i=0;i<8;i++)
+  43   1              {
+  44   2                      DS1302_IO=Commond&(0x01<<i);
+  45   2                      DS1302_SCLK=0;
+  46   2                      DS1302_SCLK=1;
+  47   2              }
+  48   1              for(i=0;i<8;i++)
+  49   1              {
+  50   2                      DS1302_SCLK=1;
+  51   2                      DS1302_SCLK=0;
+  52   2                      if(DS1302_IO)
+  53   2                      {
+  54   3                              Data|=(0x01<<i);
+C51 COMPILER V9.54   DS1302                                                                02/17/2025 20:40:04 PAGE 2   
+
+  55   3                      }
+  56   2              }
+  57   1              DS1302_CE=0;
+  58   1              DS1302_IO=0;
+  59   1              return Data;
+  60   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    174    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----       2
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
