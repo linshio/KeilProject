@@ -1,4 +1,4 @@
-C51 COMPILER V9.54   DS1302                                                                02/17/2025 20:40:04 PAGE 1   
+C51 COMPILER V9.54   DS1302                                                                02/22/2025 12:36:01 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE DS1302
@@ -9,78 +9,125 @@ COMPILER INVOKED BY: D:\DevelopApplication\Keil_v5\C51\BIN\C51.EXE DS1302.c OPTI
 line level    source
 
    1          #include <REGX52.H>
-   2          void DS1302_WriteByte(unsigned char Commond,Data);
-   3          
-   4          sbit DS1302_SCLK = P3^6;
-   5          sbit DS1302_IO = P3^4;
-   6          sbit DS1302_CE = P3^5;
-   7          
-   8          void DS1302_Init(void)
-   9          {
-  10   1              DS1302_CE=0;
-  11   1              DS1302_SCLK=0;
-  12   1              //解除写保护状态
-  13   1              DS1302_WriteByte(0x8E,0x00);
-  14   1      }
-  15          
-  16          void DS1302_WriteByte(unsigned char Commond,Data)
-  17          {
-  18   1              unsigned char i;
-  19   1              DS1302_CE=1;
-  20   1              //将第n位取出来赋值给IO
-  21   1              for(i=0;i<8;i++)
-  22   1              {
-  23   2                      DS1302_IO=Commond&(0x01<<i);
-  24   2                      DS1302_SCLK=1;
-  25   2                      DS1302_SCLK=0;
-  26   2              }
-  27   1              
-  28   1              for(i=0;i<8;i++)
-  29   1              {
-  30   2                      DS1302_IO=Data&(0x01<<i);
-  31   2                      DS1302_SCLK=1;
-  32   2                      DS1302_SCLK=0;
-  33   2              }
-  34   1              DS1302_CE=0;
-  35   1      }
-  36          
-  37          unsigned char DS1302_ReadByte(unsigned char Commond)
-  38          {
-  39   1              unsigned char i,Data=0x00;
-  40   1              DS1302_CE=1;
-  41   1              //将第n位取出来赋值给IO
-  42   1              for(i=0;i<8;i++)
-  43   1              {
-  44   2                      DS1302_IO=Commond&(0x01<<i);
-  45   2                      DS1302_SCLK=0;
-  46   2                      DS1302_SCLK=1;
-  47   2              }
-  48   1              for(i=0;i<8;i++)
-  49   1              {
-  50   2                      DS1302_SCLK=1;
-  51   2                      DS1302_SCLK=0;
-  52   2                      if(DS1302_IO)
-  53   2                      {
-  54   3                              Data|=(0x01<<i);
-C51 COMPILER V9.54   DS1302                                                                02/17/2025 20:40:04 PAGE 2   
+   2          #define DS1302_SECOND           0x80
+   3          #define DS1302_MINUTE           0x82
+   4          #define DS1302_HOUR             0x84
+   5          #define DS1302_DATE             0x86
+   6          #define DS1302_MONTH            0x88
+   7          #define DS1302_DAY                      0x8A
+   8          #define DS1302_YEAR             0x8C
+   9          #define DS1302_WP                       0x8E
+  10          void DS1302_WriteByte(unsigned char Commond,Data);
+  11          
+  12          sbit DS1302_SCLK = P3^6;
+  13          sbit DS1302_IO = P3^4;
+  14          sbit DS1302_CE = P3^5;
+  15          //存储时间数组
+  16          unsigned char DS1302_Time[] = {25,02,22,10,50,11};
+  17          
+  18          void DS1302_Init(void)
+  19          {
+  20   1              DS1302_CE=0;
+  21   1              DS1302_SCLK=0;
+  22   1              //解除写保护状态
+  23   1              DS1302_WriteByte(0x8E,0x00);
+  24   1      }
+  25          
+  26          void DS1302_WriteByte(unsigned char Commond,Data)
+  27          {
+  28   1              unsigned char i;
+  29   1              DS1302_CE=1;
+  30   1              //将第n位取出来赋值给IO
+  31   1              for(i=0;i<8;i++)
+  32   1              {
+  33   2                      DS1302_IO=Commond&(0x01<<i);
+  34   2                      DS1302_SCLK=1;
+  35   2                      DS1302_SCLK=0;
+  36   2              }
+  37   1              
+  38   1              for(i=0;i<8;i++)
+  39   1              {
+  40   2                      DS1302_IO=Data&(0x01<<i);
+  41   2                      DS1302_SCLK=1;
+  42   2                      DS1302_SCLK=0;
+  43   2              }
+  44   1              DS1302_CE=0;
+  45   1      }
+  46          
+  47          unsigned char DS1302_ReadByte(unsigned char Commond)
+  48          {
+  49   1              unsigned char i,Data=0x00;
+  50   1              Commond|=0x01;
+  51   1              DS1302_CE=1;
+  52   1              //将第n位取出来赋值给IO
+  53   1              for(i=0;i<8;i++)
+  54   1              {
+C51 COMPILER V9.54   DS1302                                                                02/22/2025 12:36:01 PAGE 2   
 
-  55   3                      }
-  56   2              }
-  57   1              DS1302_CE=0;
-  58   1              DS1302_IO=0;
-  59   1              return Data;
-  60   1      }
+  55   2                      DS1302_IO=Commond&(0x01<<i);
+  56   2                      DS1302_SCLK=0;
+  57   2                      DS1302_SCLK=1;
+  58   2              }
+  59   1              for(i=0;i<8;i++)
+  60   1              {
+  61   2                      DS1302_SCLK=1;
+  62   2                      DS1302_SCLK=0;
+  63   2                      if(DS1302_IO)
+  64   2                      {
+  65   3                              Data|=(0x01<<i);
+  66   3                      }
+  67   2              }
+  68   1              DS1302_CE=0;
+  69   1              DS1302_IO=0;
+  70   1              return Data;
+  71   1      }
+  72          
+  73          void DS1302_SetTime(void)       
+  74          {
+  75   1              //解除写保护状态
+  76   1              DS1302_WriteByte(DS1302_WP,0x00);
+  77   1              DS1302_WriteByte(DS1302_YEAR,DS1302_Time[0]/10*16+DS1302_Time[0]%10);
+  78   1              DS1302_WriteByte(DS1302_MONTH,DS1302_Time[1]/10*16+DS1302_Time[1]%10);
+  79   1              DS1302_WriteByte(DS1302_DATE,DS1302_Time[2]/10*16+DS1302_Time[2]%10);
+  80   1              DS1302_WriteByte(DS1302_HOUR,DS1302_Time[3]/10*16+DS1302_Time[3]%10);
+  81   1              DS1302_WriteByte(DS1302_MINUTE,DS1302_Time[4]/10*16+DS1302_Time[4]%10);
+  82   1              DS1302_WriteByte(DS1302_SECOND,DS1302_Time[5]/10*16+DS1302_Time[5]%10);
+  83   1              DS1302_WriteByte(DS1302_DAY,DS1302_Time[6]/10*16+DS1302_Time[6]%10);
+  84   1              DS1302_WriteByte(DS1302_WP,0x80);
+  85   1      }
+  86          
+  87          void DS1302_ReadTime(void)
+  88          {
+  89   1              unsigned char Temp;
+  90   1              Temp = DS1302_ReadByte(DS1302_YEAR);
+  91   1              DS1302_Time[0] = Temp/16*10+Temp%16;
+  92   1              Temp = DS1302_ReadByte(DS1302_MONTH);
+  93   1              DS1302_Time[1] = Temp/16*10+Temp%16;
+  94   1              Temp = DS1302_ReadByte(DS1302_DATE);
+  95   1              DS1302_Time[2] = Temp/16*10+Temp%16;
+  96   1              Temp = DS1302_ReadByte(DS1302_HOUR);
+  97   1              DS1302_Time[3] = Temp/16*10+Temp%16;
+  98   1              Temp = DS1302_ReadByte(DS1302_MINUTE);
+  99   1              DS1302_Time[4] = Temp/16*10+Temp%16;
+ 100   1              Temp = DS1302_ReadByte(DS1302_SECOND);
+ 101   1              DS1302_Time[5] = Temp/16*10+Temp%16;
+ 102   1              Temp = DS1302_ReadByte(DS1302_DAY);
+ 103   1              DS1302_Time[6] = Temp/16*10+Temp%16;
+ 104   1              
+ 105   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    174    ----
+   CODE SIZE        =    558    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =   ----       2
+   DATA SIZE        =      6       2
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
+
+C51 COMPILER V9.54   DS1302                                                                02/22/2025 12:36:01 PAGE 3   
 
 
 C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
