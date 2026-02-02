@@ -14,14 +14,14 @@ void main()
 	}
 }
 
-void Delay500ms()	//@12.000MHz
+void Delay500ms()		//@11.0592MHz
 {
 	unsigned char i, j, k;
 
 	_nop_();
 	i = 4;
-	j = 205;
-	k = 187;
+	j = 129;
+	k = 119;
 	do
 	{
 		do
