@@ -1,11 +1,12 @@
 #include <REGX52.H>
-void Delayms(unsigned int ms)		//@12.000MHz
+
+void Delayms(unsigned int ms)		//@11.0592MHz
 {
+	unsigned char i, j;
 	while(ms)
 	{
-		unsigned char i, j;
 		i = 2;
-		j = 239;
+		j = 199;
 		do
 		{
 			while (--j);
