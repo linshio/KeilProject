@@ -1,46 +1,47 @@
-C51 COMPILER V9.54   MAIN                                                                  02/06/2025 11:41:05 PAGE 1   
+C51 COMPILER V9.54   MAIN                                                                  02/03/2026 20:30:39 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MAIN
 OBJECT MODULE PLACED IN .\Objects\main.obj
-COMPILER INVOKED BY: D:\DevelopApplication\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PR
-                    -INT(.\Listings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
+COMPILER INVOKED BY: E:\DevTools\Keil_v5\C51\BIN\C51.EXE main.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.\List
+                    -ings\main.lst) TABS(2) OBJECT(.\Objects\main.obj)
 
 line level    source
 
    1          #include <REGX52.H>
    2          //该方法为延时效果
-   3          void Delay(unsigned int xms)    //@12.000MHz
+   3          void Delay(unsigned int xms)    //@11.0592MHz
    4          {
    5   1        unsigned char i, j;
    6   1      
    7   1        while(--xms){
-   8   2          i = 2;
-   9   2          j = 239;
-  10   2          do
+   8   2        i = 2;
+   9   2        j = 199;
+  10   2        do
   11   2          {
   12   3            while (--j);
   13   3          } while (--i);
   14   2        }
   15   1      }
-  16          void main(){
-  17   1        
-  18   1        //此处实现的效果为按下LED灯会亮起 松开就会熄灭
-  19   1        //让P20的LED灯点亮
-  20   1        while(1){
-  21   2          //如果P31的按钮按下去的时候
-  22   2          if(P3_1==0){
-  23   3            //过滤按下抖动
-  24   3            Delay(20);
-  25   3            //此时按钮按下不做任何操作
-  26   3            while(P3_1==0);
-  27   3            //过滤弹起抖动
-  28   3            Delay(20);
-  29   3            //扭转P20灯泡状态
-  30   3            P2_0=~P2_0;
-  31   3          }
-  32   2        }
-  33   1      }
+  16          
+  17          void main(){
+  18   1        
+  19   1        //此处实现的效果为按下LED灯会亮起 松开就会熄灭
+  20   1        //让P20的LED灯点亮
+  21   1        while(1){
+  22   2          //如果P31的按钮按下去的时候
+  23   2          if(P3_1==0){
+  24   3            //过滤按下抖动
+  25   3            Delay(20);
+  26   3            //此时按钮按下不做任何操作
+  27   3            while(P3_1==0);
+  28   3            //过滤弹起抖动
+  29   3            Delay(20);
+  30   3            //扭转P20灯泡状态
+  31   3            P2_0=~P2_0;
+  32   3          }
+  33   2        }
+  34   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE

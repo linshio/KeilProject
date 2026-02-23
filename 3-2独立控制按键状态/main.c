@@ -1,18 +1,19 @@
 #include <REGX52.H>
 //该方法为延时效果
-void Delay(unsigned int xms)		//@12.000MHz
+void Delay(unsigned int xms)		//@11.0592MHz
 {
 	unsigned char i, j;
 
 	while(--xms){
-		i = 2;
-		j = 239;
-		do
+	i = 2;
+	j = 199;
+	do
 		{
 			while (--j);
 		} while (--i);
 	}
 }
+
 void main(){
 	
 	//此处实现的效果为按下LED灯会亮起 松开就会熄灭

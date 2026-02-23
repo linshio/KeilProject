@@ -24,7 +24,8 @@ void main(){
 			while(P3_1==0);
 			Delay(20);
 			LEDNum++;
-			LEDNum = LEDNum % 8;
+			if(LEDNum>=8)
+					LEDNum=0;
 			//p2按位左移
 			P2=~(0x01<<LEDNum);
 		}
@@ -38,7 +39,7 @@ void main(){
 				LEDNum = 7;
 			else
 				LEDNum--;
-			LEDNum = LEDNum <= 0 ? 7 : LEDNum;
+		
 			//p2按位左移
 			P2=~(0x01<<LEDNum);
 		}

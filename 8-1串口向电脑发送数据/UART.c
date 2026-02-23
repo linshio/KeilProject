@@ -17,6 +17,6 @@ void UART_SendByte(unsigned char Byte)
 {
 	SBUF=Byte;
 	while(TI==0);
-	//TI复位
+	//TI复位 
 	TI=0;
 }

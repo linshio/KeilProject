@@ -31,18 +31,18 @@ void Timer0_Routine() interrupt 1
 {
 	static unsigned int T0Count;
 	TL0 = 0x66;		//设置定时初值
-	TH0 = 0xFC;		//设置定时初值
+	TH0 = 0xFC;		//设置定时初值 TL0拼接TH0的值为64535 与溢出值相差1000us即1ms
 	T0Count++;
 	if(T0Count>=500)
 	{
 		T0Count=0;
 		if(LEDMode==0)
 		{
-			P2=_crol_(P2,1);
+			P2=_crol_(P2,1);//将p2循环左移1位，溢出时会循环
 		}
 		if(LEDMode==1)
 		{
-			P2=_cror_(P2,1);
+			P2=_cror_(P2,1);//循环右移
 		}
 	}
 }

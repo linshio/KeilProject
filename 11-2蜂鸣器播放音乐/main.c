@@ -27,14 +27,17 @@ void main()
 	Time0_Init();
 	while(1)
 	{
+		//音乐终止标识符
 		if(0xFF!=Music[MusicSelect])
 		{
 			FreqTableSelect = Music[MusicSelect];
 			MusicSelect++;
 			Delay(SPEED/4*Music[MusicSelect]);
 			MusicSelect++;
+			//关闭定时器
 			TR0=0;
 			Delay(5);
+			//打开定时器
 			TR0=1;
 		}
 		else

@@ -16,7 +16,7 @@ sbit DS1302_IO = P3^4;
 sbit DS1302_CE = P3^5;
 //存储时间数组
 unsigned char DS1302_Time[] = {25,02,22,10,50,11};
-//时间的初始化
+//时间的初始化 由于单片机上电后以下端口都会置为1
 void DS1302_Init(void)
 {
 	DS1302_CE=0;
@@ -24,7 +24,7 @@ void DS1302_Init(void)
 	//解除写保护状态
 	DS1302_WriteByte(0x8E,0x00);
 }
-//向指定的地址输出数据
+//向指定的地址输出数据 commond为命令字，data为写入的数据
 void DS1302_WriteByte(unsigned char Commond,Data)
 {
 	unsigned char i;
@@ -58,6 +58,7 @@ unsigned char DS1302_ReadByte(unsigned char Commond)
 		DS1302_SCLK=0;
 		DS1302_SCLK=1;
 	}
+	//根据上升沿读取数据
 	for(i=0;i<8;i++)
 	{
 		DS1302_SCLK=1;

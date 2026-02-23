@@ -10,6 +10,7 @@ void _74HC595_WriteByte(unsigned char Byte)
 	unsigned char i;
 	for(i=0;i<8;i++)
 	{
+		//读取Byte的值与SER按位取
 		SER=Byte&(0x80>>i);
 		SCK=1;
 		SCK=0;
@@ -19,17 +20,19 @@ void _74HC595_WriteByte(unsigned char Byte)
 }
 
 //LED点阵屏显示一列数据
-//Column需要显示的列 范围0-7
+//Column需要显示的列 范围0-7 0在最左边
 //Data每列需要显示的数据 高位在上，1为亮，0为灭
 void MatrixLED_ShowColumn(unsigned char Column,Data)
 {
 	_74HC595_WriteByte(Data);
 	MATRIX_LED_PORT=~(0x80>>Column);
 	Delay(1);
+	//复位 
 	MATRIX_LED_PORT=0xFF;
 }
 void main()
 {
+	//由于单片机io口是高电平所以要先将SCK与RCK赋值位0
 	SCK=0;
 	RCK=0;
 	while(1)

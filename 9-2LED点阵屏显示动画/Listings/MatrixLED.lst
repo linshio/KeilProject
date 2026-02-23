@@ -1,10 +1,10 @@
-C51 COMPILER V9.54   MATRIXLED                                                             02/15/2025 13:45:44 PAGE 1   
+C51 COMPILER V9.54   MATRIXLED                                                             02/15/2026 12:00:01 PAGE 1   
 
 
 C51 COMPILER V9.54, COMPILATION OF MODULE MATRIXLED
 OBJECT MODULE PLACED IN .\Objects\MatrixLED.obj
-COMPILER INVOKED BY: D:\DevelopApplication\Keil_v5\C51\BIN\C51.EXE MatrixLED.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTE
-                    -ND PRINT(.\Listings\MatrixLED.lst) OBJECT(.\Objects\MatrixLED.obj)
+COMPILER INVOKED BY: E:\DevTools\Keil_v5\C51\BIN\C51.EXE MatrixLED.c OPTIMIZE(8,SPEED) BROWSE DEBUG OBJECTEXTEND PRINT(.
+                    -\Listings\MatrixLED.lst) TABS(2) OBJECT(.\Objects\MatrixLED.obj)
 
 line level    source
 
@@ -17,15 +17,15 @@ line level    source
    7          //写入74HC595一个字节
    8          void _74HC595_WriteByte(unsigned char Byte)
    9          {
-  10   1              unsigned char i;
-  11   1              for(i=0;i<8;i++)
-  12   1              {
-  13   2                      SER=Byte&(0x80>>i);
-  14   2                      SCK=1;
-  15   2                      SCK=0;
-  16   2              }
-  17   1              RCK=1;
-  18   1              RCK=0;
+  10   1        unsigned char i;
+  11   1        for(i=0;i<8;i++)
+  12   1        {
+  13   2          SER=Byte&(0x80>>i);
+  14   2          SCK=1;
+  15   2          SCK=0;
+  16   2        }
+  17   1        RCK=1;
+  18   1        RCK=0;
   19   1      }
   20          
   21          //LED点阵屏显示一列数据
@@ -33,16 +33,16 @@ line level    source
   23          //Data每列需要显示的数据 高位在上，1为亮，0为灭
   24          void MatrixLED_ShowColumn(unsigned char Column,Data)
   25          {
-  26   1              _74HC595_WriteByte(Data);
-  27   1              MATRIX_LED_PORT=~(0x80>>Column);
-  28   1              Delay(1);
-  29   1              MATRIX_LED_PORT=0xFF;
+  26   1        _74HC595_WriteByte(Data);
+  27   1        MATRIX_LED_PORT=~(0x80>>Column);
+  28   1        Delay(1);
+  29   1        MATRIX_LED_PORT=0xFF;
   30   1      }
   31          //矩阵LED初始化参数
   32          void MatrixLED_Init()
   33          {
-  34   1              SCK=0;
-  35   1              RCK=0;
+  34   1        SCK=0;
+  35   1        RCK=0;
   36   1      }
 
 

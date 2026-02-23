@@ -1,9 +1,9 @@
-BL51 BANKED LINKER/LOCATER V6.22                                                        02/07/2025  16:17:55  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22                                                        02/04/2026  15:46:09  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22, INVOKED BY:
-D:\DEVELOPAPPLICATION\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj TO .\Objects\Project PRINT (.\Listings\Project.m51) RA
->> MSIZE (256)
+E:\DEVTOOLS\KEIL_V5\C51\BIN\BL51.EXE .\Objects\main.obj TO .\Objects\Project PRINT (.\Listings\Project.m51) RAMSIZE (256
+>> )
 
 
 MEMORY MODEL: SMALL
@@ -11,8 +11,8 @@ MEMORY MODEL: SMALL
 
 INPUT MODULES INCLUDED:
   .\Objects\main.obj (MAIN)
-  D:\DEVELOPAPPLICATION\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
-  D:\DEVELOPAPPLICATION\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
+  E:\DEVTOOLS\KEIL_V5\C51\LIB\C51S.LIB (?C_STARTUP)
+  E:\DEVTOOLS\KEIL_V5\C51\LIB\C51S.LIB (?C_INIT)
 
 
 LINK MAP OF MODULE:  .\Objects\Project (MAIN)
@@ -59,7 +59,7 @@ SYMBOL TABLE OF MODULE:  .\Objects\Project (MAIN)
   C:0000H         SYMBOL        _ICE_DUMMY_
   C:008FH         PUBLIC        _Nixie
   D:0080H         PUBLIC        P0
-BL51 BANKED LINKER/LOCATER V6.22                                                      02/07/2025  16:17:55  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22                                                      02/04/2026  15:46:09  PAGE 2
 
 
   B:00A0H.2       PUBLIC        P2_2

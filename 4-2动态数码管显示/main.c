@@ -1,5 +1,19 @@
 #include <REGX52.H>
 unsigned int NixieTable[] = {0x3F,0x06,0x5B,0x4F,0x66,0x6D,0x7D,0x07,0x7F,0x6F};
+
+void Delay(unsigned int xms)		//@12.000MHz
+{
+	unsigned char i, j;
+	while(xms--)
+	{
+		i = 2;
+		j = 239;
+		do
+		{
+			while (--j);
+		} while (--i);
+	}
+}
 //将第slot个位置显示number
 void Nixie(unsigned char slot,unsigned int number){
 	switch(slot){
@@ -18,19 +32,7 @@ void Nixie(unsigned char slot,unsigned int number){
 	//防止串数据
 	P0=0x00;
 }
-void Delay(unsigned int xms)		//@12.000MHz
-{
-	unsigned char i, j;
-	while(xms--)
-	{
-		i = 2;
-		j = 239;
-		do
-		{
-			while (--j);
-		} while (--i);
-	}
-}
+
 
 void main(){
 	
